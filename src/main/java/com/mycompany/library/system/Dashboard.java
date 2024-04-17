@@ -6,7 +6,12 @@ package com.mycompany.library.system;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
+import com.mycompany.library.system.views.Principal;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /**
  *
@@ -20,6 +25,8 @@ public class Dashboard extends javax.swing.JFrame {
     public Dashboard() {
         initComponents();
         initStyles();
+        SetDate();
+        InitContent();
     }
     
     private void initStyles(){
@@ -27,12 +34,29 @@ public class Dashboard extends javax.swing.JFrame {
         mensaje.setForeground(Color.black);
         textHeader1.putClientProperty( "FlatLaf.style", "font: bold $h2.regular.font" );
         textHeader1.setForeground(Color.white);
-        textHeader2.putClientProperty( "FlatLaf.style", "font: 20 $semibold.font" );
-        textHeader2.setForeground(Color.white);
+        dateText.putClientProperty( "FlatLaf.style", "font: 20 $semibold.font" );
+        dateText.setForeground(Color.white);
         textMenu1.putClientProperty( "FlatLaf.style", "font: bold $h2.regular.font" );
         textMenu1.setForeground(Color.white);
     }
 
+    private void SetDate() {
+        LocalDate now = LocalDate.now();
+        Locale spanishLocale = new Locale("es", "ES");
+        dateText.setText(now.format(DateTimeFormatter.ofPattern("'Hoy es' EEEE dd 'de' MMMM 'de' yyyy", spanishLocale)));
+    }
+    
+    private void InitContent() {
+       Principal p1 = new Principal();
+       p1.setSize(750,430);
+       p1.setLocation(0,0);
+       
+       content.removeAll();
+       content.add(p1, BorderLayout.CENTER);
+       content.revalidate();
+       content.repaint();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,7 +78,7 @@ public class Dashboard extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         header = new javax.swing.JPanel();
         textHeader1 = new javax.swing.JLabel();
-        textHeader2 = new javax.swing.JLabel();
+        dateText = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
         mensaje = new javax.swing.JLabel();
 
@@ -150,7 +174,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         textHeader1.setText("Administración/Control/Biblioteca");
 
-        textHeader2.setText("Hoy es {dayname} {day} de {month} de {year}");
+        dateText.setText("Hoy es {dayname} {day} de {month} de {year}");
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
@@ -160,7 +184,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGap(57, 57, 57)
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textHeader2, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateText, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(209, Short.MAX_VALUE))
         );
         headerLayout.setVerticalGroup(
@@ -169,7 +193,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addComponent(textHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textHeader2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dateText, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
@@ -255,6 +279,7 @@ public class Dashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
     private javax.swing.JPanel content;
+    private javax.swing.JLabel dateText;
     private javax.swing.JPanel header;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -266,7 +291,6 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel mensaje;
     private javax.swing.JPanel menu;
     private javax.swing.JLabel textHeader1;
-    private javax.swing.JLabel textHeader2;
     private javax.swing.JLabel textMenu1;
     // End of variables declaration//GEN-END:variables
 }
