@@ -13,6 +13,8 @@ public class Books extends javax.swing.JPanel {
     private void InitStyles() {
         title.putClientProperty("FlatLaf.styleClass", "h1");
         title.setForeground(Color.black);
+        bookSearch.putClientProperty("FlatLaf.styleClass", "large");
+        bookSearch.setForeground(Color.black);
         bookSearch.putClientProperty("JTextField.placeholderText", "Ingrese el título del libro a buscar.");
     }
     
