@@ -1,10 +1,17 @@
 package com.mycompany.library.system.views;
 
+import com.mycompany.library.system.DAOUsersImpl;
+import com.mycompany.library.system.interfaces.DAOUsers;
 import java.awt.Color;
+import java.time.Clock;
 
 public class UpUsers extends javax.swing.JPanel {
 
-    
+    public UpUsers() {
+        initComponents();
+        setVisible(true);
+        InitStyles();
+    }
 
     private void InitStyles() {
         title.putClientProperty("FlatLaf.styleClass", "h1");
@@ -65,7 +72,7 @@ public class UpUsers extends javax.swing.JPanel {
         button.setForeground(new java.awt.Color(255, 255, 255));
         button.setText("Registrar");
         button.setBorderPainted(false);
-        button.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        button.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonActionPerformed(evt);
@@ -99,7 +106,7 @@ public class UpUsers extends javax.swing.JPanel {
                             .addComponent(apMTxt))
                         .addGap(68, 68, 68)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70)
+                        .addGap(18, 18, 18)
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(domTxt)
                             .addGroup(bgLayout.createSequentialGroup()
@@ -110,7 +117,7 @@ public class UpUsers extends javax.swing.JPanel {
                                 .addComponent(phoneLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(218, 218, 218))
                             .addComponent(button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(72, 72, 72))
+                        .addGap(124, 124, 124))
                     .addGroup(bgLayout.createSequentialGroup()
                         .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(553, 553, 553))))
@@ -125,11 +132,11 @@ public class UpUsers extends javax.swing.JPanel {
                     .addGroup(bgLayout.createSequentialGroup()
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(bgLayout.createSequentialGroup()
-                                .addComponent(nameLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
+                                .addComponent(nameLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(nameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(apPLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
+                                .addComponent(apPLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(apPTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -166,7 +173,19 @@ public class UpUsers extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
-
+        com.mycompany.library.system.models.Users user = new com.mycompany.library.system.models.Users();
+        user.setName("Mateo");
+        user.setLast_name_p("Martinez");
+        user.setLast_name_m("Herrera");
+        user.setDomicilio("Calle x con avenida x");
+        user.setTel("123456");
+        
+        try {
+            DAOUsers dao = new DAOUsersImpl();
+            dao.registrar(user);
+        } catch (Exception e) {
+            e.getMessage();
+        }
     }//GEN-LAST:event_buttonActionPerformed
 
 

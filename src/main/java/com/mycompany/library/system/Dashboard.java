@@ -51,7 +51,7 @@ public class Dashboard extends javax.swing.JFrame {
         showJPanel(new Principal());
     }
     
-    private void showJPanel (JPanel p){
+    public static void showJPanel (JPanel p){
        p.setSize(750,430);
        p.setLocation(0,0);
        
@@ -329,7 +329,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
-    private javax.swing.JPanel content;
+    private static javax.swing.JPanel content;
     private javax.swing.JLabel dateText;
     private javax.swing.JPanel header;
     private javax.swing.JButton jButton1;

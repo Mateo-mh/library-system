@@ -1,5 +1,6 @@
 package com.mycompany.library.system.views;
 
+import com.mycompany.library.system.Dashboard;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 
@@ -185,7 +186,7 @@ public class Users extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable1MousePressed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-
+        Dashboard.showJPanel(new UpUsers());
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
