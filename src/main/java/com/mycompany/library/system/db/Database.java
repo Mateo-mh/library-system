@@ -18,10 +18,10 @@ import java.util.logging.Logger;
 public class Database {
     protected Connection conexion;
     private final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private final String DB_URL = "jdbc:mysql://localhost/library";
+    private final String DB_URL = "jdbc:mysql://localhost/library?characterEncoding=latin1";
     
     private final String USER = "root";
-    private final String PASS = "byronMH852001";
+    private final String PASS = "byronmh852001";
     
     public void Conectar() throws ClassNotFoundException{
         try {
