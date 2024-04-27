@@ -173,12 +173,19 @@ public class UpUsers extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
+        
+        String nombre = nameTxt.getText();
+        String apellidoP = apPTxt.getText();
+        String apellidoM = apMTxt.getText();
+        String domicilio = domTxt.getText();
+        String telefono = phoneTxt.getText();
+        //validaciones para nombre
         com.mycompany.library.system.models.Users user = new com.mycompany.library.system.models.Users();
-        user.setName("Mateo");
-        user.setLast_name_p("Martinez");
-        user.setLast_name_m("Herrera");
-        user.setDomicilio("Calle x con avenida x");
-        user.setTel("123456");
+        user.setName(nombre);
+        user.setLast_name_p(apellidoP);  
+        user.setLast_name_m(apellidoM);
+        user.setDomicilio(domicilio);
+        user.setTel(telefono);
         
         try {
             DAOUsers dao = new DAOUsersImpl();
