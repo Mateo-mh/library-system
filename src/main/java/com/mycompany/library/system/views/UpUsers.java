@@ -179,7 +179,14 @@ public class UpUsers extends javax.swing.JPanel {
         String apellidoM = apMTxt.getText();
         String domicilio = domTxt.getText();
         String telefono = phoneTxt.getText();
-        //validaciones para nombre
+        
+        //validaciones de los campos
+        if (nombre.isEmpty() || apellidoP.isEmpty() || apellidoM.isEmpty() || domicilio.isEmpty() || telefono.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe llenar todos los campos. \n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            nameTxt.requestFocus();
+            return;
+        }
+        
         com.mycompany.library.system.models.Users user = new com.mycompany.library.system.models.Users();
         user.setName(nombre);
         user.setLast_name_p(apellidoP);  
@@ -190,7 +197,16 @@ public class UpUsers extends javax.swing.JPanel {
         try {
             DAOUsers dao = new DAOUsersImpl();
             dao.registrar(user);
+            
+            javax.swing.JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente. \n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            
+            nameTxt.setText("");
+            apPTxt.setText("");
+            apMTxt.setText("");
+            domTxt.setText("");
+            phoneTxt.setText("");
         } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Ocurrio un error al registrar el usuario. \n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
             e.getMessage();
         }
     }//GEN-LAST:event_buttonActionPerformed

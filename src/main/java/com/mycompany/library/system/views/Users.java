@@ -1,7 +1,10 @@
 package com.mycompany.library.system.views;
 
+import com.mycompany.library.system.DAOUsersImpl;
 import com.mycompany.library.system.Dashboard;
+import com.mycompany.library.system.interfaces.DAOUsers;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 public class Users extends javax.swing.JPanel {
@@ -10,12 +13,23 @@ public class Users extends javax.swing.JPanel {
         initComponents();
         setVisible(true);
         InitStyles();
+        LoadUsers();
     }
     
     private void InitStyles() {
         title.putClientProperty("FlatLaf.styleClass", "h1");
         title.setForeground(Color.black);
         userSearch.setForeground(Color.black);
+    }
+    
+    private void LoadUsers() {
+        try {
+            DAOUsers dao = new DAOUsersImpl();
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            dao.listar().forEach((u) -> model.addRow(new Object[]{u.getId(), u.getName(), u.getLast_name_p(), u.getLast_name_m(), u.getDomicilio(), u.getTel()}));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
