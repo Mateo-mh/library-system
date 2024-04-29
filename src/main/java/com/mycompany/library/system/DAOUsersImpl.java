@@ -31,7 +31,22 @@ public class DAOUsersImpl extends Database implements DAOUsers{
 
     @Override
     public void modificar(Users user) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            this.Conectar();
+            PreparedStatement st = this.conexion.prepareStatement("UPDATE users SET name = ?, last_name_p = ?, last_name_m = ?, domicilio = ?, tel = ? WHERE id = ?");
+            st.setString(1, user.getName());
+            st.setString(2, user.getLast_name_p());
+            st.setString(3, user.getLast_name_m());
+            st.setString(4, user.getDomicilio());
+            st.setString(5, user.getTel());
+            st.setInt(6, user.getId());
+            st.executeUpdate();
+            st.close();
+        } catch(Exception e) {
+            throw e;
+        } finally {
+            this.Cerrar();
+        }
     }
 
     @Override
@@ -40,16 +55,27 @@ public class DAOUsersImpl extends Database implements DAOUsers{
     }
 
     @Override
-    public void eliminar(Users user) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void eliminar(int userId) throws Exception {
+        try {
+            this.Conectar();
+            PreparedStatement st = this.conexion.prepareStatement("DELETE FROM users WHERE id = ?;");
+            st.setInt(1, userId);
+            st.executeUpdate();
+            st.close();
+        } catch (Exception e) {
+            throw e;
+        } finally{
+          this.Cerrar();
+        }
     }
 
     @Override
-    public List<Users> listar() throws Exception {
+    public List<Users> listar(String name) throws Exception {
         List<Users> lista = null; 
         try {
             this.Conectar();
-            PreparedStatement st = this.conexion.prepareStatement("SELECT * FROM users;");
+            String Query = name.isEmpty() ? "SELECT * FROM users;" : "SELECT * FROM users WHERE name LIKE '%" + name + "%';";
+            PreparedStatement st = this.conexion.prepareStatement(Query);
             
             lista = new ArrayList();
             ResultSet rs = st.executeQuery();
@@ -75,6 +101,36 @@ public class DAOUsersImpl extends Database implements DAOUsers{
             this.Cerrar();
         }
         return lista;
+    }
+
+    @Override
+    public Users getUserById(int userId) throws Exception {
+        Users user = new Users(); 
+        try {
+            this.Conectar();
+            PreparedStatement st = this.conexion.prepareStatement("SELECT * FROM users WHERE id = ? LIMIT 1;");
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
+            
+            while(rs.next()){
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setLast_name_p(rs.getString("Last_name_p"));
+                user.setLast_name_m(rs.getString("Last_name_m"));
+                user.setDomicilio(rs.getString("domicilio"));
+                user.setTel(rs.getString("tel"));
+                user.setSanctions(rs.getInt("sanctions"));
+                user.setSanc_money(rs.getInt("sanc_money"));
+            }
+            st.close();
+            rs.close();
+            
+        } catch (Exception e) {
+            throw e;
+        } finally{
+            this.Cerrar();
+        }
+        return user;
     }
     
 }

@@ -5,6 +5,7 @@ import com.mycompany.library.system.Dashboard;
 import com.mycompany.library.system.interfaces.DAOUsers;
 import java.awt.Color;
 import java.util.List;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class Users extends javax.swing.JPanel {
@@ -20,6 +21,7 @@ public class Users extends javax.swing.JPanel {
         title.putClientProperty("FlatLaf.styleClass", "h1");
         title.setForeground(Color.black);
         userSearch.setForeground(Color.black);
+        userSearch.putClientProperty("JTextField.placeholderText", "Ingrese el nombre de usuario a buscar.");
     }
     
     private void LoadUsers() {
@@ -204,15 +206,45 @@ public class Users extends javax.swing.JPanel {
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-
+        DAOUsers dao = new DAOUsersImpl();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        if (jTable1.getSelectedRows().length < 1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Debes seleccionar uno o más usuarios a eliminar.\n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } else {
+            for (int i : jTable1.getSelectedRows()) {
+                try {
+                    dao.eliminar((int) jTable1.getValueAt(i, 0));
+                    model.removeRow(i);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }     
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-
+        if (jTable1.getSelectedRow() > -1) {
+            try {
+                int userId = (int) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
+                DAOUsers dao = new DAOUsersImpl();
+                Dashboard.showJPanel(new UpUsers(dao.getUserById(userId)));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar el usuario a editar. \n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        
+        try {
+            DAOUsers dao = new DAOUsersImpl();
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+            dao.listar(userSearch.getText()).forEach((u) -> model.addRow(new Object[]{u.getId(), u.getName(), u.getLast_name_p(), u.getLast_name_m(), u.getDomicilio(), u.getTel()}));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }//GEN-LAST:event_searchButtonActionPerformed
 
 

@@ -7,9 +7,20 @@ import java.time.Clock;
 
 public class UpUsers extends javax.swing.JPanel {
 
+    boolean isEdition = false;
+    com.mycompany.library.system.models.Users userEdition;
+    
     public UpUsers() {
         initComponents();
         setVisible(true);
+        InitStyles();
+    }
+    
+    public UpUsers(com.mycompany.library.system.models.Users user){
+        initComponents();
+        setVisible(true);
+        isEdition = true;
+        userEdition = user;
         InitStyles();
     }
 
@@ -21,6 +32,19 @@ public class UpUsers extends javax.swing.JPanel {
         apMTxt.putClientProperty("JTextField.placeholderText", "Ingrese el apellido materno del usuario.");
         domTxt.putClientProperty("JTextField.placeholderText", "Ingrese el domicilio del usuario.");
         phoneTxt.putClientProperty("JTextField.placeholderText", "Ingrese el teléfono del usuario.");
+        
+        if (isEdition) {
+            title.setText("Editar Usuario");
+            button.setText("Guardar");
+
+            if (userEdition != null) {
+                nameTxt.setText(userEdition.getName());
+                apPTxt.setText(userEdition.getLast_name_p());
+                apMTxt.setText(userEdition.getLast_name_m());
+                domTxt.setText(userEdition.getDomicilio());
+                phoneTxt.setText(userEdition.getTel());
+            }
+        }
     }
 
     /**
@@ -187,7 +211,7 @@ public class UpUsers extends javax.swing.JPanel {
             return;
         }
         
-        com.mycompany.library.system.models.Users user = new com.mycompany.library.system.models.Users();
+        com.mycompany.library.system.models.Users user = isEdition ? userEdition : new com.mycompany.library.system.models.Users();
         user.setName(nombre);
         user.setLast_name_p(apellidoP);  
         user.setLast_name_m(apellidoM);
@@ -196,17 +220,29 @@ public class UpUsers extends javax.swing.JPanel {
         
         try {
             DAOUsers dao = new DAOUsersImpl();
-            dao.registrar(user);
             
-            javax.swing.JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente. \n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            if(!isEdition){
+                dao.registrar(user);
+            } else {
+                dao.modificar(user);
+            }
             
-            nameTxt.setText("");
-            apPTxt.setText("");
-            apMTxt.setText("");
-            domTxt.setText("");
-            phoneTxt.setText("");
+            String successMsg = isEdition ? "modificado" : "registrado";
+            
+            
+            javax.swing.JOptionPane.showMessageDialog(this, "Usuario " + successMsg + " exitosamente.\n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            
+            if(!isEdition){
+                nameTxt.setText("");
+                apPTxt.setText("");
+                apMTxt.setText("");
+                domTxt.setText("");
+                phoneTxt.setText("");
+            }
+            
         } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Ocurrio un error al registrar el usuario. \n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            String errorMsg = isEdition ? "modificar" : "registrar";
+            javax.swing.JOptionPane.showMessageDialog(this, "Ocurrió un error al " + errorMsg + " el usuario. \n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
             e.getMessage();
         }
     }//GEN-LAST:event_buttonActionPerformed
