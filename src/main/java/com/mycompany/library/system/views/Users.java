@@ -28,7 +28,7 @@ public class Users extends javax.swing.JPanel {
         try {
             DAOUsers dao = new DAOUsersImpl();
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            dao.listar().forEach((u) -> model.addRow(new Object[]{u.getId(), u.getName(), u.getLast_name_p(), u.getLast_name_m(), u.getDomicilio(), u.getTel()}));
+            dao.listar("").forEach((u) -> model.addRow(new Object[]{u.getId(), u.getName(), u.getLast_name_p(), u.getLast_name_m(), u.getDomicilio(), u.getTel()}));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
