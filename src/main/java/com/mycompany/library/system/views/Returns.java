@@ -1,11 +1,19 @@
 package com.mycompany.library.system.views;
 
+import com.mycompany.library.system.DAOBooksImpl;
+import com.mycompany.library.system.DAOLendingsImpl;
+import com.mycompany.library.system.DAOUsersImpl;
+import com.mycompany.library.system.interfaces.DAOBooks;
+import com.mycompany.library.system.interfaces.DAOLendings;
+import com.mycompany.library.system.interfaces.DAOUsers;
+import com.mycompany.library.system.utils.Utils;
 import java.awt.Color;
 import java.util.Date;
 
 public class Returns extends javax.swing.JPanel {
 
-
+    private final int MAX_DAYS_RETURN = 5;
+    private final int COST_DAY_SANC = 10;
     
     public Returns() {
         initComponents();
@@ -136,7 +144,83 @@ public class Returns extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
+        String folio = folioTxt.getText();
+        String bookId = libroIdTxt.getText();
 
+        // Validaciones para los campos
+        if (folio.isEmpty() || bookId.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe llenar todos los campos. \n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            folioTxt.requestFocus();
+            return;
+        } else if (!Utils.isNumeric(folio) || !Utils.isNumeric(bookId)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Los campos Folio y el ID del libro deben ser números enteros. \n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            folioTxt.requestFocus();
+            return;
+        } else if (Integer.parseInt(folio) <= 0 || Integer.parseInt(bookId) <= 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Los campos Folio y el ID del libro deben ser mayor que 0. \n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            folioTxt.requestFocus();
+            return;
+        }
+
+        try {
+            DAOUsers daoUsers = new DAOUsersImpl();
+            
+            // Validamos existencia del usuario
+            com.mycompany.library.system.models.Users currentUser = daoUsers.getUserById(Integer.parseInt(folio));
+            if (currentUser == null) {
+                javax.swing.JOptionPane.showMessageDialog(this, "No se encontró ningún usuario con ese folio. \n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+                folioTxt.requestFocus();
+                return;
+            }
+            
+            DAOBooks daoBooks = new DAOBooksImpl();
+            
+            // Validamos existencia del libro
+            com.mycompany.library.system.models.Books currentBook = daoBooks.getBookById(Integer.parseInt(bookId));
+            if (currentBook == null){
+                javax.swing.JOptionPane.showMessageDialog(this, "No se encontró ningún libro con ese ID. \n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+                libroIdTxt.requestFocus();
+                return;
+            }
+            
+            DAOLendings daoLendings = new DAOLendingsImpl();
+            
+            // Validamos que el usuario tenga ese libro prestado.
+            com.mycompany.library.system.models.Lendings currentLending = daoLendings.getLending(currentUser, currentBook);
+            if (currentLending == null) {
+                javax.swing.JOptionPane.showMessageDialog(this, "No se ha podido encontrar el préstamo correspiendote a los datos ingresados. \n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+                libroIdTxt.requestFocus();
+                return;
+            }
+
+            // Todo OK: Devolvemos libro.
+            currentLending.setDate_return(Utils.getFechaActual());
+            daoLendings.modificar(currentLending);
+            
+            // Modificamos el libro sumandole 1 en disponibilidad.
+            currentBook.setAvailable(currentBook.getAvailable() + 1);
+            daoBooks.modificar(currentBook);
+            
+            javax.swing.JOptionPane.showMessageDialog(this, "Libro ID: " + currentBook.getId() + " devuelto exitosamente por " + currentUser.getName() + ".\n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            folioTxt.setText("");
+            libroIdTxt.setText("");
+            
+            // Verificamos sanciones
+            int days = Utils.diferenciasDeFechas(Utils.stringToDate(currentLending.getDate_out()), new Date());
+            if (days > MAX_DAYS_RETURN) {
+                int daysDelayed = days - MAX_DAYS_RETURN;
+                int sancMoney = daysDelayed * COST_DAY_SANC;
+                
+                // Aumentamos sanción del usuario y en dinero.
+                currentUser.setSanctions(currentUser.getSanctions() + 1);
+                currentUser.setSanc_money(currentUser.getSanc_money() + sancMoney);
+                daoUsers.sancionar(currentUser);
+                javax.swing.JOptionPane.showMessageDialog(this, "¡USUARIO SANCIONADO POR ENTREGA A DESTIEMPO! ($" + sancMoney + ") \n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Ocurrió un error al prestar el libro. \n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        }
     }//GEN-LAST:event_buttonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

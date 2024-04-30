@@ -1,5 +1,8 @@
 package com.mycompany.library.system.views;
 
+import com.mycompany.library.system.DAOBooksImpl;
+import com.mycompany.library.system.Dashboard;
+import com.mycompany.library.system.interfaces.DAOBooks;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 
@@ -8,6 +11,7 @@ public class Books extends javax.swing.JPanel {
     public Books() {
         initComponents();
         InitStyles();
+        LoadBooks();
     }
     
     private void InitStyles() {
@@ -18,7 +22,15 @@ public class Books extends javax.swing.JPanel {
         bookSearch.putClientProperty("JTextField.placeholderText", "Ingrese el título del libro a buscar.");
     }
     
-
+    private void LoadBooks() {
+        try {
+            DAOBooks dao = new DAOBooksImpl();
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            dao.listar("").forEach((u) -> model.addRow(new Object[]{u.getId(), u.getTitle(), u.getDate(), u.getAuthor(), u.getCategory(), u.getEdit(), u.getLang(), u.getPages(), u.getDescription(), u.getEjemplares(), u.getStock(), u.getAvailable()}));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -187,19 +199,49 @@ public class Books extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable1MousePressed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-
+        Dashboard.showJPanel(new UpBooks());
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
- 
+        DAOBooks dao = new DAOBooksImpl();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        if (jTable1.getSelectedRows().length < 1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Debes seleccionar uno o más libros a eliminar.\n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } else {
+            for (int i : jTable1.getSelectedRows()) {
+                try {
+                    dao.eliminar((int) jTable1.getValueAt(i, 0));
+                    model.removeRow(i);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-
+        if (jTable1.getSelectedRow() > -1) {
+            try {
+                int bookId = (int) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
+                DAOBooks dao = new DAOBooksImpl();
+                Dashboard.showJPanel(new UpBooks(dao.getBookById(bookId)));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Debes seleccionar el libro a editar.\n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-
+        try {
+            DAOBooks dao = new DAOBooksImpl();
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+            dao.listar(bookSearch.getText()).forEach((u) -> model.addRow(new Object[]{u.getId(), u.getTitle(), u.getDate(), u.getAuthor(), u.getCategory(), u.getEdit(), u.getLang(), u.getPages(), u.getDescription(), u.getEjemplares(), u.getStock(), u.getAvailable()}));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }//GEN-LAST:event_searchButtonActionPerformed
 
 

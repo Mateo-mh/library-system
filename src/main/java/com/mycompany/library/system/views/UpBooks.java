@@ -1,11 +1,27 @@
 package com.mycompany.library.system.views;
 
 
+import com.mycompany.library.system.DAOBooksImpl;
+import com.mycompany.library.system.interfaces.DAOBooks;
+import com.mycompany.library.system.utils.Utils;
 import java.awt.Color;
 
 public class UpBooks extends javax.swing.JPanel {
 
+    boolean isEdition = false;
+    com.mycompany.library.system.models.Books bookEdition;
+    
+    public UpBooks() {
+        initComponents();
+        InitStyles();
+    }
 
+    public UpBooks(com.mycompany.library.system.models.Books book) {
+        initComponents();
+        isEdition = true;
+        bookEdition = book;
+        InitStyles();
+    }
 
     private void InitStyles() {
         title.putClientProperty("FlatLaf.styleClass", "h1");
@@ -21,6 +37,25 @@ public class UpBooks extends javax.swing.JPanel {
         stockTxt.putClientProperty("JTextField.placeholderText", "Ingrese el stock total del libro.");
         dispTxt.putClientProperty("JTextField.placeholderText", "Ingrese el númeor de libros disponibles.");
         ejemTxt.putClientProperty("JTextField.placeholderText", "Ingrese el número de ejemplares del libro.");
+        
+        if (isEdition) {
+            title.setText("Editar Libro");
+            button.setText("Guardar");
+
+            if (bookEdition != null) {
+                titleTxt.setText(bookEdition.getTitle());
+                dateTxt.setText(bookEdition.getDate());
+                authorTxt.setText(bookEdition.getAuthor());
+                catTxt.setText(bookEdition.getCategory());
+                edTxt.setText(bookEdition.getEdit());
+                langTxt.setText(bookEdition.getLang());
+                pagsTxt.setText(bookEdition.getPages());
+                descTxt.setText(bookEdition.getDescription());
+                stockTxt.setText(bookEdition.getStock() + "");
+                dispTxt.setText(bookEdition.getAvailable() + "");
+                ejemTxt.setText(bookEdition.getEjemplares());
+            }
+        }
     }
 
     /**
@@ -253,7 +288,74 @@ public class UpBooks extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
+        String mtitle = titleTxt.getText();
+        String date = dateTxt.getText();
+        String author = authorTxt.getText();
+        String cat = catTxt.getText();
+        String ed = edTxt.getText();
+        String lang = langTxt.getText();
+        String pags = pagsTxt.getText();
+        String desc = descTxt.getText();
+        String stock = stockTxt.getText();
+        String disp = dispTxt.getText();
+        String ejem = ejemTxt.getText();
 
+        // Validaciones para los campos
+        if (mtitle.isEmpty() || date.isEmpty() || author.isEmpty() || cat.isEmpty() || ed.isEmpty()
+                || lang.isEmpty() || pags.isEmpty() || desc.isEmpty() || stock.isEmpty() || disp.isEmpty() || ejem.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe llenar todos los campos. \n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            titleTxt.requestFocus();
+            return;
+        } else if (!Utils.isNumeric(stock) || !Utils.isNumeric(disp)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Los campos Stock y Disponibles deben ser números enteros. \n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            titleTxt.requestFocus();
+            return;
+        }
+
+        com.mycompany.library.system.models.Books book = isEdition ? bookEdition : new com.mycompany.library.system.models.Books();
+        book.setTitle(mtitle);
+        book.setDate(date);
+        book.setAuthor(author);
+        book.setCategory(cat);
+        book.setEdit(ed);
+        book.setLang(lang);
+        book.setPages(pags);
+        book.setDescription(desc);
+        book.setEjemplares(ejem);
+        book.setStock(Integer.parseInt(stock));
+        book.setAvailable(Integer.parseInt(disp));
+
+        try {
+            DAOBooks dao = new DAOBooksImpl();
+
+            if (!isEdition) {
+                dao.registrar(book);
+            } else {
+                dao.modificar(book);
+            }
+
+            String successMsg = isEdition ? "modificado" : "registrado";
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Libro " + successMsg + " exitosamente.\n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+            if (!isEdition) {
+                titleTxt.setText("");
+                dateTxt.setText("");
+                authorTxt.setText("");
+                catTxt.setText("");
+                edTxt.setText("");
+                langTxt.setText("");
+                pagsTxt.setText("");
+                descTxt.setText("");
+                stockTxt.setText("");
+                dispTxt.setText("");
+                ejemTxt.setText("");
+            }
+        } catch (Exception e) {
+            String errorMsg = isEdition ? "modificar" : "registrar";
+            javax.swing.JOptionPane.showMessageDialog(this, "Ocurrió un error al " + errorMsg + " el libro. \n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        }
     }//GEN-LAST:event_buttonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -51,12 +51,12 @@
               </Group>
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="470" max="-2" attributes="0"/>
-                  <Component id="lendingTextField2" max="32767" attributes="0"/>
+                  <Component id="libroIdTxt" max="32767" attributes="0"/>
                   <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
               </Group>
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="470" max="-2" attributes="0"/>
-                  <Component id="lendingTextField1" max="32767" attributes="0"/>
+                  <Component id="folioTxt" max="32767" attributes="0"/>
                   <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
               </Group>
               <Group type="102" attributes="0">
@@ -87,11 +87,11 @@
                           <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
                           <Component id="lendingText2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                          <Component id="lendingTextField2" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="libroIdTxt" min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
-                          <Component id="lendingTextField1" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="folioTxt" min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="270" pref="270" max="-2" attributes="0"/>
@@ -121,9 +121,9 @@
             <Property name="text" type="java.lang.String" value="Folio Usuario"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="lendingTextField1">
+        <Component class="javax.swing.JTextField" name="folioTxt">
         </Component>
-        <Component class="javax.swing.JTextField" name="lendingTextField2">
+        <Component class="javax.swing.JTextField" name="libroIdTxt">
         </Component>
         <Component class="javax.swing.JLabel" name="lendingText2">
           <Properties>
