@@ -32,6 +32,17 @@ public class UpUsers extends javax.swing.JPanel {
         apMTxt.putClientProperty("JTextField.placeholderText", "Ingrese el apellido materno del usuario.");
         domTxt.putClientProperty("JTextField.placeholderText", "Ingrese el domicilio del usuario.");
         phoneTxt.putClientProperty("JTextField.placeholderText", "Ingrese el teléfono del usuario.");
+        nameTxt.setForeground(Color.black);
+        apPTxt.setForeground(Color.black);
+        apMTxt.setForeground(Color.black);
+        domTxt.setForeground(Color.black);
+        phoneTxt.setForeground(Color.black);
+        
+        nameLbl.setForeground(Color.black);
+        apPLbl.setForeground(Color.black);
+        apMLbl.setForeground(Color.black);
+        domLbl.setForeground(Color.black);
+        phoneLbl.setForeground(Color.black);
         
         if (isEdition) {
             title.setText("Editar Usuario");

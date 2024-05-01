@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.mycompany.library.system.views;
 
 import com.mycompany.library.system.DAOBooksImpl;
@@ -13,28 +9,21 @@ import com.mycompany.library.system.interfaces.DAOUsers;
 import com.mycompany.library.system.utils.Utils;
 import java.awt.Color;
 
-/**
- *
- * @author LENOVO
- */
 public class Lendings extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Principal
-     */
     public Lendings() {
         initComponents();
-        initStyles();
+        InitStyles();
     }
-    
-    private void initStyles(){
-        lendingText1.putClientProperty( "FlatLaf.styleClass", "large" );
-        lendingText1.setForeground(Color.black);
-        lendingText2.putClientProperty( "FlatLaf.styleClass", "large" );
-        lendingText2.setForeground(Color.black);
-        folioTxt.putClientProperty( "FlatLaf.styleClass", "large" );
+
+    private void InitStyles() {
+        folioLbl.putClientProperty("FlatLaf.styleClass", "large");
+        folioLbl.setForeground(Color.black);
+        libroIdLbl.putClientProperty("FlatLaf.styleClass", "large");
+        libroIdLbl.setForeground(Color.black);
+        folioTxt.putClientProperty("JTextField.placeholderText", "Ingrese el folio del usuario.");
+        libroIdTxt.putClientProperty("JTextField.placeholderText", "Ingrese el ID del Libro a prestar.");
         folioTxt.setForeground(Color.black);
-        libroIdTxt.putClientProperty( "FlatLaf.styleClass", "large" );
         libroIdTxt.setForeground(Color.black);
     }
 
@@ -47,111 +36,100 @@ public class Lendings extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        bg = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        lendingText1 = new javax.swing.JLabel();
+        folioLbl = new javax.swing.JLabel();
         folioTxt = new javax.swing.JTextField();
+        libroIdLbl = new javax.swing.JLabel();
         libroIdTxt = new javax.swing.JTextField();
-        lendingText2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        imgBG = new javax.swing.JLabel();
+        button = new javax.swing.JButton();
+        image = new javax.swing.JLabel();
 
-        setPreferredSize(new java.awt.Dimension(750, 430));
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        bg.setBackground(new java.awt.Color(255, 255, 255));
 
         jSeparator1.setForeground(new java.awt.Color(204, 204, 204));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jSeparator1.setPreferredSize(new java.awt.Dimension(200, 10));
 
-        lendingText1.setText("Folio Usuario");
+        folioLbl.setText("Folio Usuario");
 
-        lendingText2.setText("Libro ID");
+        folioTxt.setToolTipText("");
 
-        jButton1.setBackground(new java.awt.Color(13, 71, 161));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Prestar");
-        jButton1.setBorderPainted(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        libroIdLbl.setText("Libro ID");
+
+        button.setBackground(new java.awt.Color(18, 90, 173));
+        button.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        button.setForeground(new java.awt.Color(255, 255, 255));
+        button.setText("Prestar");
+        button.setBorderPainted(false);
+        button.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buttonActionPerformed(evt);
             }
         });
 
-        imgBG.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        imgBG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prestamo.gif"))); // NOI18N
+        image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prestamo.gif"))); // NOI18N
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(470, 470, 470)
-                .addComponent(lendingText1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(120, 120, 120))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(470, 470, 470)
-                .addComponent(lendingText2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(110, 110, 110))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(470, 470, 470)
-                .addComponent(libroIdTxt)
-                .addGap(20, 20, 20))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(470, 470, 470)
-                .addComponent(folioTxt)
-                .addGap(20, 20, 20))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
+        bg.setLayout(bgLayout);
+        bgLayout.setHorizontalGroup(
+            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bgLayout.createSequentialGroup()
                 .addGap(450, 450, 450)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(284, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(470, 470, 470)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addComponent(folioLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(199, 199, 199))
+                    .addComponent(folioTxt)
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addComponent(libroIdLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(223, 223, 223))
+                    .addComponent(libroIdTxt)
+                    .addComponent(button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(20, 20, 20))
-            .addComponent(imgBG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(bgLayout.createSequentialGroup()
+                .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(193, 193, 193))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        bgLayout.setVerticalGroup(
+            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bgLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jSeparator1)
-                .addGap(70, 70, 70))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(lendingText1)
-                        .addGap(74, 74, 74)
-                        .addComponent(lendingText2)
-                        .addGap(14, 14, 14)
-                        .addComponent(libroIdTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(folioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(270, 270, 270)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(90, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(imgBG, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(60, 60, 60))
+            .addGroup(bgLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(folioLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(16, 16, 16)
+                .addComponent(folioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(libroIdLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(16, 16, 16)
+                .addComponent(libroIdTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(button, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(110, 110, 110))
+            .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
         String folio = folioTxt.getText();
         String bookId = libroIdTxt.getText();
 
@@ -225,17 +203,16 @@ public class Lendings extends javax.swing.JPanel {
             javax.swing.JOptionPane.showMessageDialog(this, "Ocurrió un error al prestar el libro. \n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+    }//GEN-LAST:event_buttonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel bg;
+    private javax.swing.JButton button;
+    private javax.swing.JLabel folioLbl;
     private javax.swing.JTextField folioTxt;
-    private javax.swing.JLabel imgBG;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel image;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel lendingText1;
-    private javax.swing.JLabel lendingText2;
+    private javax.swing.JLabel libroIdLbl;
     private javax.swing.JTextField libroIdTxt;
     // End of variables declaration//GEN-END:variables
 }

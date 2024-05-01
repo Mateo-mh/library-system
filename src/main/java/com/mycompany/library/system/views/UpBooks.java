@@ -1,6 +1,5 @@
 package com.mycompany.library.system.views;
 
-
 import com.mycompany.library.system.DAOBooksImpl;
 import com.mycompany.library.system.interfaces.DAOBooks;
 import com.mycompany.library.system.utils.Utils;
@@ -10,14 +9,16 @@ public class UpBooks extends javax.swing.JPanel {
 
     boolean isEdition = false;
     com.mycompany.library.system.models.Books bookEdition;
-    
+
     public UpBooks() {
         initComponents();
+        setVisible(true);
         InitStyles();
     }
 
     public UpBooks(com.mycompany.library.system.models.Books book) {
         initComponents();
+        setVisible(true);
         isEdition = true;
         bookEdition = book;
         InitStyles();
@@ -37,7 +38,30 @@ public class UpBooks extends javax.swing.JPanel {
         stockTxt.putClientProperty("JTextField.placeholderText", "Ingrese el stock total del libro.");
         dispTxt.putClientProperty("JTextField.placeholderText", "Ingrese el númeor de libros disponibles.");
         ejemTxt.putClientProperty("JTextField.placeholderText", "Ingrese el número de ejemplares del libro.");
+        titleTxt.setForeground(Color.black);
+        dateTxt.setForeground(Color.black);
+        authorTxt.setForeground(Color.black);
+        catTxt.setForeground(Color.black);
+        edTxt.setForeground(Color.black);
+        langTxt.setForeground(Color.black);
+        pagsTxt.setForeground(Color.black);
+        descTxt.setForeground(Color.black);
+        stockTxt.setForeground(Color.black);
+        dispTxt.setForeground(Color.black);
+        ejemTxt.setForeground(Color.black);
         
+        titleLbl.setForeground(Color.black);
+        dateLbl.setForeground(Color.black);
+        authorLbl.setForeground(Color.black);
+        catLbl.setForeground(Color.black);
+        edLbl.setForeground(Color.black);
+        langLbl.setForeground(Color.black);
+        pagsLbl.setForeground(Color.black);
+        descLbl.setForeground(Color.black);
+        stockLbl.setForeground(Color.black);
+        dispLbl.setForeground(Color.black);
+        ejemLbl.setForeground(Color.black);
+
         if (isEdition) {
             title.setText("Editar Libro");
             button.setText("Guardar");

@@ -52,6 +52,7 @@ public class DAOBooksImpl extends Database implements DAOBooks {
             st.setString(9, book.getEjemplares());
             st.setInt(10, book.getStock());
             st.setInt(11, book.getAvailable());
+            st.setInt(12, book.getId());
             st.executeUpdate();
             st.close();
         } catch(Exception e) {

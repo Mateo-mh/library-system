@@ -17,7 +17,6 @@ public class Books extends javax.swing.JPanel {
     private void InitStyles() {
         title.putClientProperty("FlatLaf.styleClass", "h1");
         title.setForeground(Color.black);
-        bookSearch.putClientProperty("FlatLaf.styleClass", "large");
         bookSearch.setForeground(Color.black);
         bookSearch.putClientProperty("JTextField.placeholderText", "Ingrese el título del libro a buscar.");
     }
@@ -229,7 +228,7 @@ public class Books extends javax.swing.JPanel {
                 System.out.println(e.getMessage());
             }
         } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Debes seleccionar el libro a editar.\n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar el usuario a editar. \n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_editButtonActionPerformed
 
