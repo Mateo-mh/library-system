@@ -9,7 +9,7 @@ Features
 ✔️ Lookup tables.  
 ✔️ DAO Pattern.
 
-Getting Started
-Import the java project in your preferred IDE and import the database. Just edit the class Database.java with your database connection credentials.
+Getting Started  
+Import the java project in your preferred IDE and import the database. Just edit the class Database.java with your database connection credentials.  
 
 Note: They also have the library.sql file included so you can run it and create the tables you need in the database.
