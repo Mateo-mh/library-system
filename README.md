@@ -1,12 +1,12 @@
 Library System
 Basic system for managing a library on Java using Look And Feel and DAO Pattern.
 
-Features
-✔️ Graphic interface with Material Design style (Using Look And Feel).
-✔️ MySQL database connection.
-✔️ Management of books, loans and returns.
-✔️ Movement logs.
-✔️ Lookup tables.
+Features  
+✔️ Graphic interface with Material Design style (Using Look And Feel).  
+✔️ MySQL database connection.  
+✔️ Management of books, loans, and returns.  
+✔️ Movement logs.  
+✔️ Lookup tables.  
 ✔️ DAO Pattern.
 
 Getting Started
